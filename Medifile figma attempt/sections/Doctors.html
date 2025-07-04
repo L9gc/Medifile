@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Doctors | Medifile</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    /* Layout and sidebar */
+    .layout {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 220px;
+      background: #008080;
+      color: white;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .sidebar h2 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    .sidebar ul li a.active,
+    .sidebar ul li a:hover {
+      background-color: #006666;
+    }
+
+    /* Content */
+    .content {
+      margin-left: 220px;
+      padding: 2rem;
+      flex: 1;
+      background: #f4f6f8;
+      overflow-y: auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.topbar {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .profile img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    /* Container for form and table side by side */
+    .doctor-container {
+      display: flex;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    /* Form takes about 45% */
+    .add-doctor-form {
+      flex: 1 1 45%;
+      min-width: 320px;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    }
+    .add-doctor-form h2 {
+      color: #008080;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    .add-doctor-form label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      color: #007BFF;
+    }
+    .add-doctor-form input,
+    .add-doctor-form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .add-doctor-form button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+    .add-doctor-form button:hover {
+      background: #0056b3;
+    }
+
+    /* Table takes about 55% */
+    .doctor-list {
+      flex: 1 1 55%;
+      min-width: 320px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+    }
+    .doctor-list h2 {
+      color: #008080;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .doctor-list table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .doctor-list thead {
+      background: #f0f0f0;
+    }
+    .doctor-list th,
+    .doctor-list td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doctor-list th {
+      color: #007BFF;
+    }
+    .delete-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    /* Responsive: stack on smaller screens */
+    @media (max-width: 768px) {
+      .doctor-container {
+        flex-direction: column;
+      }
+      .add-doctor-form,
+      .doctor-list {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Medifile</h2>
+      <ul>
+        <li><a href="../dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="patients.html"><i class="fa-solid fa-circle-user"></i> Patients</a></li>
+        <li><a href="Appointment.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="doctors.html" class="active"><i class="fas fa-user-md"></i> Doctors</a></li>
+        <li><a href="medication.html"><i class="fa-solid fa-prescription-bottle-medical"></i> Medication</a></li>
+        <li><a href="education.html"><i class="fas fa-book-open"></i> Education</a></li>
+        <li><a href="message.html"><i class="fas fa-comments"></i> Chat</a></li>
+        <li><a href="Patient-file.html"><i class="fas fa-file-alt"></i> Patient File</a></li>
+        <li><a href="Logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="profile">
+          <img src="https://i.pravatar.cc/40?u=doctors" alt="User" />
+          <strong>Admin User</strong>
+        </div>
+      </header>
+
+      <div class="doctor-container">
+        <section class="add-doctor-form" aria-label="Add new doctor form">
+          <h2>Add New Doctor</h2>
+          <form id="doctorForm">
+            <label for="doctorName">Name</label>
+            <input type="text" id="doctorName" required />
+
+            <label for="specialization">Specialization</label>
+            <input type="text" id="specialization" placeholder="e.g. Cardiologist" required />
+
+            <label for="contact">Contact Number</label>
+            <input type="tel" id="contact" placeholder="e.g. +123456789" required />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="doctor@example.com" required />
+
+            <button type="submit">Add Doctor</button>
+          </form>
+        </section>
+
+        <section class="doctor-list" aria-label="List of doctors">
+          <h2>Doctors List</h2>
+          <table id="doctorTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const doctorForm = document.getElementById('doctorForm');
+    const doctorTableBody = document.querySelector('#doctorTable tbody');
+
+    doctorForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const name = document.getElementById('doctorName').value.trim();
+      const specialization = document.getElementById('specialization').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!name || !specialization || !contact || !email) return;
+
+      const tr = document.createElement('tr');
+
+      tr.innerHTML = `
+        <td>${name}</td>
+        <td>${specialization}</td>
+        <td>${contact}</td>
+        <td>${email}</td>
+        <td><button class="delete-btn" aria-label="Delete doctor ${name}">Delete</button></td>
+      `;
+
+      doctorTableBody.appendChild(tr);
+      doctorForm.reset();
+
+      tr.querySelector('.delete-btn').addEventListener('click', () => {
+        tr.remove();
+      });
+    });
+  </script>
+</body>
+</html>

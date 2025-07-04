@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Patient File | Medifile</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    /* Layout and sidebar */
+    .layout {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 220px;
+      background: #008080;
+      color: white;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .sidebar h2 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    .sidebar ul li a.active,
+    .sidebar ul li a:hover {
+      background-color: #006666;
+    }
+
+    /* Content */
+    .content {
+      margin-left: 220px;
+      padding: 2rem;
+      flex: 1;
+      background: #f4f6f8;
+      overflow-y: auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.topbar {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .profile img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    /* Container for form and table side by side */
+    .patientfile-container {
+      display: flex;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    /* Form takes about 45% */
+    .add-patientfile-form {
+      flex: 1 1 45%;
+      min-width: 320px;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    }
+    .add-patientfile-form h2 {
+      color: #008080;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    .add-patientfile-form label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      color: #007BFF;
+    }
+    .add-patientfile-form input,
+    .add-patientfile-form textarea,
+    .add-patientfile-form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    .add-patientfile-form button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+    .add-patientfile-form button:hover {
+      background: #0056b3;
+    }
+
+    /* Table takes about 55% */
+    .patientfile-list {
+      flex: 1 1 55%;
+      min-width: 320px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+    }
+    .patientfile-list h2 {
+      color: #008080;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .patientfile-list table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .patientfile-list thead {
+      background: #f0f0f0;
+    }
+    .patientfile-list th,
+    .patientfile-list td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+      vertical-align: top;
+    }
+    .patientfile-list th {
+      color: #007BFF;
+    }
+    .delete-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    /* Responsive: stack on smaller screens */
+    @media (max-width: 768px) {
+      .patientfile-container {
+        flex-direction: column;
+      }
+      .add-patientfile-form,
+      .patientfile-list {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Medifile</h2>
+      <ul>
+        <li><a href="../dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="patients.html"><i class="fa-solid fa-circle-user"></i> Patients</a></li>
+        <li><a href="Appointment.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="doctors.html"><i class="fas fa-user-md"></i> Doctors</a></li>
+        <li><a href="medication.html"><i class="fa-solid fa-prescription-bottle-medical"></i> Medication</a></li>
+        <li><a href="education.html"><i class="fas fa-book-open"></i> Education</a></li>
+        <li><a href="message.html"><i class="fas fa-comments"></i> Chat</a></li>
+        <li><a href="Patient-file.html" class="active"><i class="fas fa-file-alt"></i> Patient File</a></li>
+        <li><a href="Logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="profile">
+          <img src="https://i.pravatar.cc/40?u=patientfile" alt="User" />
+          <strong>Admin User</strong>
+        </div>
+      </header>
+
+      <div class="patientfile-container">
+        <section class="add-patientfile-form" aria-label="Add new patient file form">
+          <h2>Add New Patient File</h2>
+          <form id="patientFileForm">
+            <label for="patientName">Patient Name</label>
+            <input type="text" id="patientName" required />
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required />
+
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="" disabled selected>Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+
+            <label for="bloodType">Blood Type</label>
+            <input type="text" id="bloodType" placeholder="e.g. O+, A-" required />
+
+            <label for="allergies">Allergies</label>
+            <textarea id="allergies" rows="3" placeholder="List any allergies" required></textarea>
+
+            <label for="medicalHistory">Medical History</label>
+            <textarea id="medicalHistory" rows="4" placeholder="Brief medical history" required></textarea>
+
+            <button type="submit">Add Patient File</button>
+          </form>
+        </section>
+
+        <section class="patientfile-list" aria-label="List of patient files">
+          <h2>Patient Files</h2>
+          <table id="patientFileTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Blood Type</th>
+                <th>Allergies</th>
+                <th>Medical History</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const patientFileForm = document.getElementById('patientFileForm');
+    const patientFileTableBody = document.querySelector('#patientFileTable tbody');
+
+    patientFileForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const name = document.getElementById('patientName').value.trim();
+      const dob = document.getElementById('dob').value;
+      const gender = document.getElementById('gender').value;
+      const bloodType = document.getElementById('bloodType').value.trim();
+      const allergies = document.getElementById('allergies').value.trim();
+      const medicalHistory = document.getElementById('medicalHistory').value.trim();
+
+      if (!name || !dob || !gender || !bloodType || !allergies || !medicalHistory) return;
+
+      const tr = document.createElement('tr');
+
+      tr.innerHTML = `
+        <td>${name}</td>
+        <td>${dob}</td>
+        <td>${gender}</td>
+        <td>${bloodType}</td>
+        <td>${allergies}</td>
+        <td>${medicalHistory}</td>
+        <td><button class="delete-btn" aria-label="Delete patient file for ${name}">Delete</button></td>
+      `;
+
+      patientFileTableBody.appendChild(tr);
+      patientFileForm.reset();
+
+      tr.querySelector('.delete-btn').addEventListener('click', () => {
+        tr.remove();
+      });
+    });
+  </script>
+</body>
+</html>

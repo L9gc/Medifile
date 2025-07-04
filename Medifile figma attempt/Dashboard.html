@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | Medifile</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Medifile</h2>
+      <ul>
+        <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="sections/Patient.html"><i class="fa-solid fa-circle-user"></i> Patients</a></li>
+        <li><a href="sections/Appointment.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="sections/Doctors.html"><i class="fas fa-user-md"></i> Doctors</a></li>
+        <li><a href="sections/medication.html"><i class="fa-solid fa-prescription-bottle-medical"></i> Medication</a></li>
+        <li><a href="sections/Education.html"><i class="fas fa-book-open"></i> Education</a></li>
+        <li><a href="sections/message.html"><i class="fas fa-comments"></i> Chat</a></li>
+        <li><a href="sections/Patient-file.html"><i class="fas fa-file-alt"></i> Patient File</a></li>
+        <li><a href="sections/Logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="profile">
+          <img src="https://i.pravatar.cc/40" alt="Profile" />
+          <span>Dr. John Doe</span>
+        </div>
+      </header>
+
+      <div class="panel-header">
+        <h1>Welcome, Patient 👨‍⚕️</h1>
+        <button class="new-btn">New Entry</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active">Overview</button>
+        <button class="tab">Reports</button>
+        <button class="tab">History</button>
+      </div>
+
+      <div class="tab-content active">
+        <p>This is the overview section.</p>
+      </div>
+
+      <div class="tab-content">
+        <p>This is the reports section.</p>
+      </div>
+
+      <div class="tab-content">
+        <p>This is the history section.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach((tab, idx) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        tabContents.forEach((content) => (content.style.display = "none"));
+        tabContents[idx].style.display = "block";
+      });
+    });
+
+    // Show first tab content on load
+    tabContents.forEach((content, i) => {
+      content.style.display = i === 0 ? "block" : "none";
+    });
+  </script>
+</body>
+</html>

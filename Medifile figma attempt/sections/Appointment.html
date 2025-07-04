@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Appointments | Medifile</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Medifile</h2>
+      <ul>
+        <li><a href="../dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="Patient.html"><i class="fa-solid fa-circle-user"></i> Patients</a></li>
+        <li><a href="Appointment.html" class="active"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="Doctors.html"><i class="fas fa-user-md"></i> Doctors</a></li>
+        <li><a href="message.html"><i class="fas fa-comments"></i> Messages</a></li>
+        <li><a href="Education.html"><i class="fas fa-book"></i> Education</a></li>
+        <li><a href="Patient-file.html"><i class="fas fa-file-alt"></i> Patient File</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="Logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="profile">
+          <span><i class="fas fa-bell"></i></span>
+          <img src="https://i.pravatar.cc/30" alt="User" />
+          <div>
+            <strong>Jonitha Cathrine</strong><br />
+            <small>Admin</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="main-panel">
+        <div class="panel-header">
+          <h2>Appointments</h2>
+          <button class="new-btn"><i class="fas fa-plus"></i> New Appointment</button>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active">New Appointments</button>
+          <button class="tab">Completed Appointments</button>
+        </div>
+
+        <div class="tab-content active">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Date</th>
+                  <th>Patient Name</th>
+                  <th>Age</th>
+                  <th>Doctor</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>9:30 AM</td>
+                  <td>05/12/2022</td>
+                  <td>Elizabeth Polson</td>
+                  <td>32</td>
+                  <td>Dr. John</td>
+                  <td>
+                    <a href="#">Reschedule</a>
+                    <button class="delete-btn">X</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content">
+          <p>No completed appointments yet.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach((tab, idx) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        tabContents.forEach((content) => (content.style.display = "none"));
+        tabContents[idx].style.display = "block";
+      });
+    });
+
+    // Show first tab content on load
+    tabContents.forEach((content, i) => {
+      content.style.display = i === 0 ? "block" : "none";
+    });
+
+    // Delete appointment row on button click
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const row = e.target.closest('tr');
+        row.remove();
+      });
+    });
+  </script>
+</body>
+</html>
